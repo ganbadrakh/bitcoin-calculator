@@ -5,24 +5,29 @@ document.querySelector('.investment__btn').addEventListener('click', () => {
   const btcUSDNow = document.querySelector('.price__input--now').value;
   const btc = document.querySelector('.investment__btc').value;
 
-  const invested = btc * btcUSDBought;
-  const current = btc * btcUSDNow;
-
-  const profit = current - invested;
-  const growth = calcGrowth(invested, current);
-
-  let message = '';
-  const resultField = document.querySelector('.result');
-
-  if (profit > 0) {
-    message = `Great! You made a profit of $${profit} (${growth}%).`;
-    resultField.style.color = 'green';
-  } else if (profit < 0) {
-    message = `Oh no! You're at loss of $${profit} (${growth}%).`;
-    resultField.style.color = 'red';
+  // Tests if user entered values
+  if (!btcUSDBought || !btcUSDNow || !btc) {
+    alert('Please enter amounts you cannot leave these blank!');
   } else {
-    message = `You're breaking even!`;
-  }
+    const invested = btc * btcUSDBought;
+    const current = btc * btcUSDNow;
 
-  resultField.textContent = message;
+    const profit = current - invested;
+    const growth = calcGrowth(invested, current);
+
+    let message = '';
+    const resultField = document.querySelector('.result');
+
+    if (profit > 0) {
+      message = `Great! You made a profit of $${profit} (${growth}%).`;
+      resultField.style.color = 'green';
+    } else if (profit < 0) {
+      message = `Oh no! You're at loss of $${profit} (${growth}%).`;
+      resultField.style.color = 'red';
+    } else {
+      message = `You're breaking even!`;
+    }
+
+    resultField.textContent = message;
+  }
 });
